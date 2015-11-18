@@ -1,24 +1,22 @@
 package controller;
 
-import javax.swing.JOptionPane;
-
-import gui.GUI;
-
 public class Password {
+	
+	private static final int NUMBERS = 10;
+	private static final int LOWER_CHARS = 26;
+	private static final int UPPER_CHARS = 26;
+	private static final int SPECIAL_SIGNS = 34;
+	
 	private String password;
 	private double combinations = 0;
 	private int strength;
+	private String strengthText;
 	private char[] character;
 	
 	private boolean hasNumbers = false;
 	private boolean hasLowerChars = false;
 	private boolean hasUpperChars = false;
 	private boolean hasSpecialSigns = false;
-	
-	private int numbers = 10;
-	private int lowerChars = 26;
-	private int upperChars = 26;
-	private int specialSigns = 34;
 	
 	private int base = 0;
 	
@@ -31,6 +29,10 @@ public class Password {
 	
 	public int getStrength(){
 		return this.strength;
+	}
+	
+	public String getStrengthText(){
+		return this.strengthText;
 	}
 	
 	public String getPassword(){
@@ -49,37 +51,43 @@ public class Password {
 		this.combinations =  Math.pow(this.base, this.password.length())/1000000000;
 		if(this.password.equals("")){
 			this.strength = 0;
+			this.strengthText ="";
 		}
 		else if(this.combinations < 1000) {
 			this.strength = 20;
+			this.strengthText ="Sehr schwach";
 		}
 		else if(this.combinations < 10000){
 			this.strength = 40;
+			this.strengthText ="Schwach";
 		}
 		else if(this.combinations < 1000000){
 			this.strength = 60;
+			this.strengthText ="Mittel";
 		}
 		else if(this.combinations < 1000000000){
 			this.strength = 80; 
+			this.strengthText ="Stark";
 		}
 		else{
 			this.strength = 100;
+			this.strengthText ="Sehr stark";
 		}
 
 	}
 	
 	private void setBase(){
 		if(this.hasNumbers){
-			this.base += this.numbers;
+			this.base += NUMBERS;
 		}
 		if(this.hasLowerChars){
-			this.base += this.lowerChars;
+			this.base += LOWER_CHARS;
 		}
 		if(this.hasUpperChars){
-			this.base += this.upperChars;
+			this.base += UPPER_CHARS;
 		}
 		if(this.hasSpecialSigns){
-			this.base += this.specialSigns;
+			this.base += SPECIAL_SIGNS;
 		}
 	}
 	
